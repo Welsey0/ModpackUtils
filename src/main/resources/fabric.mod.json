@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${mod_version}",
+  "name": "${mod_name}",
+  "description": "${mod_description}",
+  "authors": ["${mod_authors}"],
+  "contact": {
+    "homepage": "https://github.com/UltimatChamp/ModpackUtils",
+    "issues": "https://github.com/UltimatChamp/ModpackUtils/issues"
+  },
+  "license": "A${mod_license}",
+  "icon": "assets/mutils/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "dev.ultimatchamp.mutils.loaders.fabric.ModpackUtilsFabric"
+    ],
+    "modmenu": [
+      "dev.ultimatchamp.mutils.config.ModMenuAPIImpl"
+    ]
+  },
+  "mixins": [
+    "mutils.mixins.json"
+  ],
+  "depends": {
+    "minecraft": "${minecraft_range}",
+    "fabricloader": "*",
+    "fabric": "*",
+    "yet_another_config_lib_v3": "*"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.modrinth": "https://modrinth.com/mod/mutils",
+        "modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/mutils",
+        "modmenu.discord": "https://discord.gg/kfKjjhv3pn"
+      },
+      "update_checker": true
+    }
+  }
+}

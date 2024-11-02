@@ -1,0 +1,17 @@
+{
+  "mutils.title": "ModpackUtils Config",
+  "mutils.category.general": "General",
+  "mutils.menuAlert": "Menu Alert",
+  "mutils.menuAlert.desc": "Shows a toast on the \"Main Menu\".",
+  "mutils.chatAlert": "Chat Alert",
+  "mutils.chatAlert.desc": "Sends a chat message, on joining a world.",
+  "mutils.chatMessage": "Chat Message",
+  "mutils.platform": "Platform",
+  "mutils.modrinth": "Modrinth",
+  "mutils.modpackId": "Modpack ID",
+  "mutils.localVersion": "Local Version",
+  "mutils.localVersion.desc": "Version currently installed.",
+  "mutils.versionAPI": "Version API",
+  "mutils.changelogLink": "Changelog Link",
+  "mutils.text.updateButton": "Update Available!"
+}

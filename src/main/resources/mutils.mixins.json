@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "dev.ultimatchamp.mutils.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "minVersion": "0.8",
+  "mixins": [
+    "ClientPacketListenerMixin",
+    "MainMenuMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
