@@ -9,6 +9,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
+import java.nio.file.Path;
+
 //? if fabric {
 import net.fabricmc.loader.api.FabricLoader;
 //?} else neo {
@@ -18,25 +20,27 @@ import net.fabricmc.loader.api.FabricLoader;
 *///?}
 
 public class ModpackUtilsConfig {
+    public static Path CONFIG_DIR =
+            //? if fabric {
+            FabricLoader.getInstance().getConfigDir()
+            //?} else {
+            /*FMLPaths.CONFIGDIR.get()
+            *///?}
+            ;
+
     private static final ConfigClassHandler<ModpackUtilsConfig> GSON = ConfigClassHandler.createBuilder(ModpackUtilsConfig.class)
             .id(Identifier.of("mutils", "config"))
             .serializer(config -> GsonConfigSerializerBuilder.create(config)
-                    .setPath(
-                            //? if fabric {
-                            FabricLoader.getInstance().getConfigDir().resolve("mutils.json5")
-                            //?} else {
-                            /*FMLPaths.CONFIGDIR.get().resolve("mutils.json5")
-                            *///?}
-                    )
+                    .setPath(CONFIG_DIR.resolve("mutils/mutils.json5"))
                     .setJson5(true)
                     .build())
             .build();
 
     @SerialEntry
-    public boolean menuAlert = true;
+    public boolean menuAlert = false;
 
     @SerialEntry
-    public boolean chatAlert = true;
+    public boolean chatAlert = false;
 
     @SerialEntry
     public String chatMessage = "There is an update available for your modpack!";
@@ -46,7 +50,7 @@ public class ModpackUtilsConfig {
 
     public enum Platforms implements NameableEnum {
         CUSTOM("generator.custom"),
-        MODRINTH("aiutd.modrinth");
+        MODRINTH("mutils.modrinth");
 
         private final String displayName;
 
@@ -61,16 +65,51 @@ public class ModpackUtilsConfig {
     }
 
     @SerialEntry
-    public String modpackId = "<modpack-id>";
+    public String modpackName = "My Modpack";
+
+    @SerialEntry
+    public String modpackId = "my-modpack";
+
+    @SerialEntry
+    public String modpackHome = "https://github.com/me/My-Modpack";
 
     @SerialEntry
     public String localVersion = "1.0.0";
 
     @SerialEntry
-    public String versionAPI = "https://raw.githubusercontent.com/<you>/<modpack-name>/main/Packwiz/pack.toml";
+    public String versionAPI = "https://raw.githubusercontent.com/me/My-Modpack/main/Packwiz/pack.toml";
 
     @SerialEntry
-    public String changelogLink = "https://raw.githubusercontent.com/<you>/<modpack-name>/main/CHANGELOG.md";
+    public String changelogLink = "https://raw.githubusercontent.com/me/My-Modpack/main/CHANGELOG.md";
+
+    @SerialEntry
+    public boolean customIcon = false;
+
+    @SerialEntry
+    public boolean customTitle = false;
+
+    @SerialEntry
+    public String title = "<modpack-name> <version> | Minecraft <mc>";
+
+    @SerialEntry
+    public MmcStyle mainMenuCreditsIntegeration = MmcStyle.OFF;
+
+    public enum MmcStyle implements NameableEnum {
+        OFF("options.off"),
+        NORMAL("options.difficulty.normal"),
+        FANCY("options.graphics.fancy");
+
+        private final String displayName;
+
+        MmcStyle(String displayName) {
+            this.displayName = displayName;
+        }
+
+        @Override
+        public Text getDisplayName() {
+            return Text.translatable(displayName);
+        }
+    }
 
     public static ConfigClassHandler<ModpackUtilsConfig> handler() {
         return GSON;

@@ -11,7 +11,7 @@ public class ModpackUtilsGui {
         return YetAnotherConfigLib.create(ModpackUtilsConfig.handler(), (defaults, config, builder) -> builder
                 .title(Text.translatable("mutils.title"))
                 .category(ConfigCategory.createBuilder()
-                        .name(Text.translatable("stat.generalButton"))
+                        .name(Text.translatable("mutils.category.update"))
                         .option(Option.<Boolean>createBuilder()
                                 .name(Text.translatable("mutils.menuAlert"))
                                 .description(OptionDescription.createBuilder()
@@ -37,7 +37,10 @@ public class ModpackUtilsGui {
                                 .controller(TickBoxControllerBuilder::create)
                                 .build())
                         .option(Option.<String>createBuilder()
-                                .name(Text.translatable("mutils.chatMessage"))
+                                .name(Text.translatable("gui.abuseReport.type.chat"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Text.translatable("mutils.chatMessage.desc"))
+                                        .build())
                                 .binding(
                                         defaults.chatMessage,
                                         () -> config.chatMessage,
@@ -46,7 +49,10 @@ public class ModpackUtilsGui {
                                 .controller(StringControllerBuilder::create)
                                 .build())
                         .option(Option.<ModpackUtilsConfig.Platforms>createBuilder()
-                                .name(Text.translatable("mutils.platform"))
+                                .name(Text.translatable("telemetry.property.platform.title"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Text.translatable("mutils.platform.desc"))
+                                        .build())
                                 .binding(
                                         defaults.platform,
                                         () -> config.platform,
@@ -55,13 +61,41 @@ public class ModpackUtilsGui {
                                 .customController(opt -> new EnumController<>(opt, ModpackUtilsConfig.Platforms.class))
                                 .build())
                         .option(Option.<String>createBuilder()
+                                .name(Text.translatable("mutils.modpackName"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Text.translatable("mutils.modpackName.desc"))
+                                        .build())
+                                .binding(
+                                        defaults.modpackName,
+                                        () -> config.modpackName,
+                                        (value) -> config.modpackName = value
+                                )
+                                .controller(StringControllerBuilder::create)
+                                .build())
+                        .option(Option.<String>createBuilder()
                                 .name(Text.translatable("mutils.modpackId"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Text.translatable("mutils.modpackId.desc"))
+                                        .build())
                                 .binding(
                                         defaults.modpackId,
                                         () -> config.modpackId,
                                         (value) -> config.modpackId = value
                                 )
                                 .available(ModpackUtilsConfig.instance().platform != ModpackUtilsConfig.Platforms.CUSTOM)
+                                .controller(StringControllerBuilder::create)
+                                .build())
+                        .option(Option.<String>createBuilder()
+                                .name(Text.translatable("mutils.modpackHome"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Text.translatable("mutils.modpackHome.desc"))
+                                        .build())
+                                .binding(
+                                        defaults.modpackHome,
+                                        () -> config.modpackHome,
+                                        (value) -> config.modpackHome = value
+                                )
+                                .available(ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.CUSTOM)
                                 .controller(StringControllerBuilder::create)
                                 .build())
                         .option(Option.<String>createBuilder()
@@ -78,6 +112,9 @@ public class ModpackUtilsGui {
                                 .build())
                         .option(Option.<String>createBuilder()
                                 .name(Text.translatable("mutils.versionAPI"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Text.translatable("mutils.versionAPI.desc"))
+                                        .build())
                                 .binding(
                                         defaults.versionAPI,
                                         () -> config.versionAPI,
@@ -88,6 +125,9 @@ public class ModpackUtilsGui {
                                 .build())
                         .option(Option.<String>createBuilder()
                                 .name(Text.translatable("mutils.changelogLink"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Text.translatable("mutils.changelogLink.desc"))
+                                        .build())
                                 .binding(
                                         defaults.changelogLink,
                                         () -> config.changelogLink,
@@ -95,6 +135,61 @@ public class ModpackUtilsGui {
                                 )
                                 .available(ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.CUSTOM)
                                 .controller(StringControllerBuilder::create)
+                                .build())
+                        .build())
+                .category(ConfigCategory.createBuilder()
+                        .name(Text.translatable("mutils.category.window"))
+                        .option(Option.<Boolean>createBuilder()
+                                .name(Text.translatable("mutils.customIcon"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Text.translatable("mutils.customIcon.desc"))
+                                        .build())
+                                .binding(
+                                        defaults.customIcon,
+                                        () -> config.customIcon,
+                                        (value) -> config.customIcon = value
+                                )
+                                .controller(TickBoxControllerBuilder::create)
+                                .build())
+                        .option(Option.<Boolean>createBuilder()
+                                .name(Text.translatable("mutils.customTitle"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Text.translatable("mutils.customTitle.desc"))
+                                        .build())
+                                .binding(
+                                        defaults.customTitle,
+                                        () -> config.customTitle,
+                                        (value) -> config.customTitle = value
+                                )
+                                .controller(TickBoxControllerBuilder::create)
+                                .build())
+                        .option(Option.<String>createBuilder()
+                                .name(Text.translatable("mco.backup.entry.name"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Text.translatable("mutils.cTitle.desc"))
+                                        .build())
+                                .binding(
+                                        defaults.title,
+                                        () -> config.title,
+                                        (value) -> config.title = value
+                                )
+                                .available(ModpackUtilsConfig.instance().customTitle)
+                                .controller(StringControllerBuilder::create)
+                                .build())
+                        .build())
+                .category(ConfigCategory.createBuilder()
+                        .name(Text.translatable("mutils.category.mmc"))
+                        .option(Option.<ModpackUtilsConfig.MmcStyle>createBuilder()
+                                .name(Text.translatable("mutils.mmcIntg"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Text.translatable("mutils.mmcIntg.desc"))
+                                        .build())
+                                .binding(
+                                        defaults.mainMenuCreditsIntegeration,
+                                        () -> config.mainMenuCreditsIntegeration,
+                                        (value) -> config.mainMenuCreditsIntegeration = value
+                                )
+                                .customController(opt -> new EnumController<>(opt, ModpackUtilsConfig.MmcStyle.class))
                                 .build())
                         .build())
                 .save(ModpackUtilsConfig.handler()::save)
