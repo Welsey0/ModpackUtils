@@ -91,8 +91,19 @@ public class ModpackUtilsConfig {
     @SerialEntry
     public String title = "<modpack-name> <version> | Minecraft <mc>";
 
+    //? if fabric {
     @SerialEntry
     public MmcStyle mainMenuCreditsIntegeration = MmcStyle.OFF;
+    //?}
+
+    @SerialEntry
+    public boolean ramMenuAlert = false;
+
+    @SerialEntry
+    public boolean ramChatAlert = false;
+
+    @SerialEntry
+    public Integer minRam = 8192;
 
     public enum MmcStyle implements NameableEnum {
         OFF("options.off"),

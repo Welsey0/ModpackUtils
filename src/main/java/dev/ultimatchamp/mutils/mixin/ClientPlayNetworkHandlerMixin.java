@@ -38,5 +38,22 @@ public class ClientPlayNetworkHandlerMixin {
                     false
             );
         }
+
+        if (ModpackUtilsConfig.instance().ramChatAlert) {
+            var allocatedRam = ModpackUtils.getAllocatedRam();
+            var minRam = ModpackUtilsConfig.instance().minRam;
+
+            if (minRam > allocatedRam) {
+                MinecraftClient.getInstance().player.sendMessage(Text.translatable("mutils.text.lowRam").styled(arg -> arg.withColor(Formatting.YELLOW)), false);
+                MinecraftClient.getInstance().player.sendMessage(
+                        Text.literal(allocatedRam + " --> " + minRam)
+                                .styled(arg -> arg
+                                        .withUnderline(true)
+                                        .withColor(Formatting.YELLOW)
+                                ),
+                        false
+                );
+            }
+        }
     }
 }

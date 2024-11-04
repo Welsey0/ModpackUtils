@@ -66,6 +66,7 @@ dependencies {
     if (isFabric) {
         modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
         modImplementation "maven.modrinth:modmenu:${property("deps.modmenu_version")}"
+        modImplementation "maven.modrinth:main-menu-credits:${property("deps.mmc_version")}"
     } else if (isNeo) {
         neoForge "net.neoforged:neoforge:${property("deps.neoforge")}"
     } else if (isForge) {
@@ -93,13 +94,13 @@ afterEvaluate {
 
 processResources {
     var replaceProperties = [
-            minecraft_range      : project.property("deps.mc_range"),
-            mod_id               : mod_id,
-            mod_name             : mod_name,
-            mod_license          : mod_license,
-            mod_version          : project.version,
-            mod_authors          : mod_authors,
-            mod_description      : mod_description
+            minecraft_range: project.property("deps.mc_range"),
+            mod_id         : mod_id,
+            mod_name       : mod_name,
+            mod_license    : mod_license,
+            mod_version    : project.version,
+            mod_authors    : mod_authors,
+            mod_description: mod_description
     ]
     replaceProperties.each { key, value -> inputs.property(key, value) }
 

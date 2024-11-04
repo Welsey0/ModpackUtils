@@ -177,6 +177,7 @@ public class ModpackUtilsGui {
                                 .controller(StringControllerBuilder::create)
                                 .build())
                         .build())
+                //? if fabric {
                 .category(ConfigCategory.createBuilder()
                         .name(Text.translatable("mutils.category.mmc"))
                         .option(Option.<ModpackUtilsConfig.MmcStyle>createBuilder()
@@ -190,6 +191,43 @@ public class ModpackUtilsGui {
                                         (value) -> config.mainMenuCreditsIntegeration = value
                                 )
                                 .customController(opt -> new EnumController<>(opt, ModpackUtilsConfig.MmcStyle.class))
+                                .build())
+                        .build())
+                //?}
+                .category(ConfigCategory.createBuilder()
+                        .name(Text.translatable("mutils.category.ramAlert"))
+                        .option(Option.<Boolean>createBuilder()
+                                .name(Text.translatable("mutils.ramMenuAlert"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Text.translatable("mutils.ramMenuAlert.desc"))
+                                        .build())
+                                .binding(
+                                        defaults.ramMenuAlert,
+                                        () -> config.ramMenuAlert,
+                                        (value) -> config.ramMenuAlert = value
+                                )
+                                .controller(TickBoxControllerBuilder::create)
+                                .build())
+                        .option(Option.<Boolean>createBuilder()
+                                .name(Text.translatable("mutils.ramChatAlert"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Text.translatable("mutils.ramChatAlert.desc"))
+                                        .build())
+                                .binding(
+                                        defaults.ramChatAlert,
+                                        () -> config.ramChatAlert,
+                                        (value) -> config.ramChatAlert = value
+                                )
+                                .controller(TickBoxControllerBuilder::create)
+                                .build())
+                        .option(Option.<Integer>createBuilder()
+                                .name(Text.translatable("mutils.minRam"))
+                                .binding(
+                                        defaults.minRam,
+                                        () -> config.minRam,
+                                        (value) -> config.minRam = value
+                                )
+                                .controller(IntegerFieldControllerBuilder::create)
                                 .build())
                         .build())
                 .save(ModpackUtilsConfig.handler()::save)

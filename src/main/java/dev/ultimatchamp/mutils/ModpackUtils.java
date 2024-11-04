@@ -78,60 +78,8 @@ public class ModpackUtils {
         return !ModpackUtilsConfig.instance().localVersion.equals(getLatestVersion());
     }
 
-    // MainMenuCredits Integration
-    public static String getMmcText() {
-        if (ModpackUtilsConfig.instance().mainMenuCreditsIntegeration == ModpackUtilsConfig.MmcStyle.NORMAL) {
-            return """
-                    {
-                      "main_menu": {
-                        "bottom_right": [
-                          {
-                            "text": "%s",
-                            "clickEvent": {
-                              "action": "open_url",
-                              "value": "%s"
-                            }
-                          }
-                        ]
-                      }
-                    }
-                    """
-                    .formatted(
-                            ModpackUtilsConfig.instance().modpackName + " " + ModpackUtilsConfig.instance().localVersion,
-                            ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.MODRINTH ? "https://modrinth.com/modpack/" + ModpackUtilsConfig.instance().modpackId + "/version/" + ModpackUtilsConfig.instance().localVersion : ModpackUtilsConfig.instance().modpackHome
-                    );
-        } else if (ModpackUtilsConfig.instance().mainMenuCreditsIntegeration == ModpackUtilsConfig.MmcStyle.FANCY) {
-            return """
-                    {
-                      "main_menu": {
-                        "bottom_right": [
-                          {
-                            "text": "%s",
-                            "color": "green",
-                            "clickEvent": {
-                              "action": "open_url",
-                              "value": "%s"
-                            }
-                          },
-                          {
-                            "text": "%s",
-                            "color": "#FF00FF",
-                            "clickEvent": {
-                              "action": "open_url",
-                              "value": "%s"
-                            }
-                          }
-                        ]
-                      }
-                    }
-                    """
-                    .formatted(
-                            ModpackUtilsConfig.instance().localVersion,
-                            ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.MODRINTH ? "https://modrinth.com/modpack/" + ModpackUtilsConfig.instance().modpackId + "/version/" + ModpackUtilsConfig.instance().localVersion : ModpackUtilsConfig.instance().changelogLink,
-                            ModpackUtilsConfig.instance().modpackName,
-                            ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.MODRINTH ? "https://modrinth.com/modpack/" + ModpackUtilsConfig.instance().modpackId : ModpackUtilsConfig.instance().modpackHome
-                    );
-        }
-        return null;
+    // Ram Alert
+    public static int getAllocatedRam() {
+        return (int) (Runtime.getRuntime().maxMemory() / (1024 * 1024)); // bytes to MiB
     }
 }
