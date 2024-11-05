@@ -21,18 +21,26 @@ public class ClientPlayNetworkHandlerMixin {
             return;
         }
 
+        if (ModpackUtilsConfig.instance().chatWelcome) {
+            MinecraftClient.getInstance().player.sendMessage(Text.literal(
+                    ModpackUtilsConfig.instance().chatWelcomeMessage
+                            .replaceAll("<modpack-name>", ModpackUtilsConfig.instance().modpackName)
+                            .replaceAll("<version>", ModpackUtilsConfig.instance().localVersion)
+            ).styled(arg -> arg.withColor(Formatting.GREEN)), false);
+        }
+
         if (ModpackUtilsConfig.instance().menuAlert && ModpackUtils.updateAvailable() && ModpackUtils.getLatestVersion() != null) {
-            MinecraftClient.getInstance().player.sendMessage(Text.literal(ModpackUtilsConfig.instance().chatMessage), false);
+            MinecraftClient.getInstance().player.sendMessage(Text.literal(ModpackUtilsConfig.instance().chatMessage).styled(arg -> arg.withColor(Formatting.YELLOW)), false);
             MinecraftClient.getInstance().player.sendMessage(
                     Text.literal(ModpackUtilsConfig.instance().modpackName + " " + ModpackUtilsConfig.instance().localVersion + " --> " + ModpackUtils.getLatestVersion())
                             .styled(arg -> arg
                                     .withUnderline(true)
-                                    .withColor(Formatting.BLUE)
+                                    .withColor(Formatting.YELLOW)
                                     .withClickEvent(new ClickEvent(
                                             ClickEvent.Action.OPEN_URL,
-                                            ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.MODRINTH ?
-                                                    "https://modrinth.com/modpack/" + ModpackUtilsConfig.instance().modpackId + "/version/" + ModpackUtils.getLatestVersion() :
-                                                    ModpackUtilsConfig.instance().changelogLink
+                                            ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.MODRINTH
+                                                    ? "https://modrinth.com/modpack/" + ModpackUtilsConfig.instance().modpackId + "/version/" + ModpackUtils.getLatestVersion()
+                                                    : ModpackUtilsConfig.instance().changelogLink
                                     ))
                             ),
                     false
@@ -44,12 +52,11 @@ public class ClientPlayNetworkHandlerMixin {
             var minRam = ModpackUtilsConfig.instance().minRam;
 
             if (minRam > allocatedRam) {
-                MinecraftClient.getInstance().player.sendMessage(Text.translatable("mutils.text.lowRam").styled(arg -> arg.withColor(Formatting.YELLOW)), false);
+                MinecraftClient.getInstance().player.sendMessage(Text.translatable("mutils.text.lowRam").styled(arg -> arg.withColor(Formatting.RED)), false);
                 MinecraftClient.getInstance().player.sendMessage(
                         Text.literal(allocatedRam + " --> " + minRam)
                                 .styled(arg -> arg
-                                        .withUnderline(true)
-                                        .withColor(Formatting.YELLOW)
+                                        .withColor(Formatting.RED)
                                 ),
                         false
                 );

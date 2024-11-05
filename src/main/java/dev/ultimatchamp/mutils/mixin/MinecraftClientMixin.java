@@ -32,8 +32,8 @@ public abstract class MinecraftClientMixin {
             var minRam = ModpackUtilsConfig.instance().minRam;
 
             if (minRam > allocatedRam) {
-                SystemToast.show(this.toastManager, SystemToast.Type.PERIODIC_NOTIFICATION, Text.translatable("mutils.text.lowRam").formatted(Formatting.DARK_RED, Formatting.BOLD), Text.literal(allocatedRam + " --> " + minRam).formatted(Formatting.GOLD));
-                ModpackUtils.LOGGER.warn("[ModpackUtils] Low ram allocated: {} --> {}", minRam, allocatedRam);
+                SystemToast.show(this.toastManager, SystemToast.Type.PERIODIC_NOTIFICATION, Text.translatable("mutils.text.lowRam").formatted(Formatting.RED, Formatting.BOLD), Text.literal(allocatedRam + " --> " + minRam).formatted(Formatting.GOLD));
+                ModpackUtils.LOGGER.error("[ModpackUtils] Low ram allocated: {} --> {}", allocatedRam, minRam);
             }
         }
     }

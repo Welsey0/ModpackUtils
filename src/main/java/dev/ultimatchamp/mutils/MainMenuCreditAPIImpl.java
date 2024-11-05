@@ -23,9 +23,9 @@ public class MainMenuCreditAPIImpl implements MainMenuCreditAPI {
                             arg.withClickEvent(
                                     new ClickEvent(
                                             ClickEvent.Action.OPEN_URL,
-                                            ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.MODRINTH ?
-                                                    "https://modrinth.com/modpack/" + ModpackUtilsConfig.instance().modpackId + "/version/" + ModpackUtilsConfig.instance().localVersion :
-                                                    ModpackUtilsConfig.instance().modpackHome
+                                            ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.MODRINTH
+                                                    ? "https://modrinth.com/modpack/" + ModpackUtilsConfig.instance().modpackId + "/version/" + ModpackUtilsConfig.instance().localVersion
+                                                    : ModpackUtilsConfig.instance().modpackHome
                                     )
                             )
                     )
@@ -40,9 +40,9 @@ public class MainMenuCreditAPIImpl implements MainMenuCreditAPI {
                             .withClickEvent(
                                     new ClickEvent(
                                             ClickEvent.Action.OPEN_URL,
-                                            ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.MODRINTH ?
-                                                    "https://modrinth.com/modpack/" + ModpackUtilsConfig.instance().modpackId + "/version/" + ModpackUtilsConfig.instance().localVersion :
-                                                    ModpackUtilsConfig.instance().changelogLink
+                                            ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.MODRINTH
+                                                    ? "https://modrinth.com/modpack/" + ModpackUtilsConfig.instance().modpackId + "/version/" + ModpackUtilsConfig.instance().localVersion
+                                                    : ModpackUtilsConfig.instance().changelogLink
                                     )
                             )
                     )
@@ -57,13 +57,43 @@ public class MainMenuCreditAPIImpl implements MainMenuCreditAPI {
                             .withClickEvent(
                                     new ClickEvent(
                                             ClickEvent.Action.OPEN_URL,
-                                            ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.MODRINTH ?
-                                                    "https://modrinth.com/modpack/" + ModpackUtilsConfig.instance().modpackId :
-                                                    ModpackUtilsConfig.instance().modpackHome
+                                            ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.MODRINTH
+                                                    ? "https://modrinth.com/modpack/" + ModpackUtilsConfig.instance().modpackId
+                                                    : ModpackUtilsConfig.instance().modpackHome
                                     )
                             )
                     )
             );
+        } else if (ModpackUtilsConfig.instance().mainMenuCreditsIntegeration == ModpackUtilsConfig.MmcStyle.CUSTOM) {
+            if (ModpackUtilsConfig.instance().customMmc.size() >= 3 && ModpackUtilsConfig.instance().customMmc.size() % 3 == 0) {
+                for (int i = 0; i < ModpackUtilsConfig.instance().customMmc.size(); i += 3) {
+                    String text = ModpackUtilsConfig.instance().customMmc.get(i)
+                            .replaceAll("<modpack-name>", ModpackUtilsConfig.instance().modpackName)
+                            .replaceAll("<version>", ModpackUtilsConfig.instance().localVersion);
+
+                    String color = ModpackUtilsConfig.instance().customMmc.get(i + 1);
+
+                    String link = ModpackUtilsConfig.instance().customMmc.get(i + 2)
+                            .replaceAll("<modpack-home>",
+                                    ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.MODRINTH
+                                            ? "https://modrinth.com/modpack/" + ModpackUtilsConfig.instance().modpackId
+                                            : ModpackUtilsConfig.instance().modpackHome)
+                            .replaceAll("<version-link>",
+                                    ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.MODRINTH
+                                            ? "https://modrinth.com/modpack/" + ModpackUtilsConfig.instance().modpackId + "/version/" + ModpackUtilsConfig.instance().localVersion
+                                            : ModpackUtilsConfig.instance().changelogLink);
+                    list.add(Text.literal(text).styled(arg -> arg
+                            //? if >1.20.1 {
+                            .withColor(TextColor.parse(color).getOrThrow())
+                            //?} else {
+                            /*.withColor(TextColor.parse(color))
+                            *///?}
+                            .withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, link))
+                    ));
+                }
+            } else {
+                ModpackUtils.LOGGER.error("[ModpackUtils] Incorrect syntax for custom MainMenuCredits integration!");
+            }
         }
 
         return list;

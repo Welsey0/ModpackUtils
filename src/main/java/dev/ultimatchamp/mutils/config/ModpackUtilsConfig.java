@@ -10,6 +10,7 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 import java.nio.file.Path;
+import java.util.List;
 
 //? if fabric {
 import net.fabricmc.loader.api.FabricLoader;
@@ -83,6 +84,12 @@ public class ModpackUtilsConfig {
     public String changelogLink = "https://raw.githubusercontent.com/me/My-Modpack/main/CHANGELOG.md";
 
     @SerialEntry
+    public Boolean chatWelcome = false;
+
+    @SerialEntry
+    public String chatWelcomeMessage = "Welcome from <modpack-name> <version>!";
+
+    @SerialEntry
     public boolean customIcon = false;
 
     @SerialEntry
@@ -94,21 +101,12 @@ public class ModpackUtilsConfig {
     //? if fabric {
     @SerialEntry
     public MmcStyle mainMenuCreditsIntegeration = MmcStyle.OFF;
-    //?}
-
-    @SerialEntry
-    public boolean ramMenuAlert = false;
-
-    @SerialEntry
-    public boolean ramChatAlert = false;
-
-    @SerialEntry
-    public Integer minRam = 8192;
 
     public enum MmcStyle implements NameableEnum {
         OFF("options.off"),
         NORMAL("options.difficulty.normal"),
-        FANCY("options.graphics.fancy");
+        FANCY("options.graphics.fancy"),
+        CUSTOM("generator.custom");
 
         private final String displayName;
 
@@ -121,6 +119,26 @@ public class ModpackUtilsConfig {
             return Text.translatable(displayName);
         }
     }
+
+    @SerialEntry
+    public List<String> customMmc = List.of(
+            "<version>",
+            "#FF00FF",
+            "<version-link>",
+            "<modpack-name>",
+            "#55FF55",
+            "<modpack-home>"
+    );
+    //?}
+
+    @SerialEntry
+    public boolean ramMenuAlert = false;
+
+    @SerialEntry
+    public boolean ramChatAlert = false;
+
+    @SerialEntry
+    public Integer minRam = 8192;
 
     public static ConfigClassHandler<ModpackUtilsConfig> handler() {
         return GSON;

@@ -138,6 +138,34 @@ public class ModpackUtilsGui {
                                 .build())
                         .build())
                 .category(ConfigCategory.createBuilder()
+                        .name(Text.translatable("mutils.category.chatWelcome"))
+                        .option(Option.<Boolean>createBuilder()
+                                .name(Text.translatable("mutils.category.chatWelcome"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Text.translatable("mutils.chatAlert.desc"))
+                                        .build())
+                                .binding(
+                                        defaults.chatWelcome,
+                                        () -> config.chatWelcome,
+                                        (value) -> config.chatWelcome = value
+                                )
+                                .controller(TickBoxControllerBuilder::create)
+                                .build())
+                        .option(Option.<String>createBuilder()
+                                .name(Text.translatable("gui.abuseReport.type.chat"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Text.translatable("mutils.chatWelcomeMessage.desc"))
+                                        .build())
+                                .binding(
+                                        defaults.chatWelcomeMessage,
+                                        () -> config.chatWelcomeMessage,
+                                        (value) -> config.chatWelcomeMessage = value
+                                )
+                                .available(ModpackUtilsConfig.instance().chatWelcome)
+                                .controller(StringControllerBuilder::create)
+                                .build())
+                        .build())
+                .category(ConfigCategory.createBuilder()
                         .name(Text.translatable("mutils.category.window"))
                         .option(Option.<Boolean>createBuilder()
                                 .name(Text.translatable("mutils.customIcon"))
@@ -191,6 +219,20 @@ public class ModpackUtilsGui {
                                         (value) -> config.mainMenuCreditsIntegeration = value
                                 )
                                 .customController(opt -> new EnumController<>(opt, ModpackUtilsConfig.MmcStyle.class))
+                                .build())
+                        .group(ListOption.<String>createBuilder()
+                                .description(OptionDescription.createBuilder()
+                                        .text(Text.translatable("bettergrass.customMmc.desc"))
+                                        .build())
+                                .binding(
+                                        defaults.customMmc,
+                                        () -> config.customMmc,
+                                        val -> config.customMmc = val
+                                )
+                                .available(ModpackUtilsConfig.instance().mainMenuCreditsIntegeration == ModpackUtilsConfig.MmcStyle.CUSTOM)
+                                .controller(StringControllerBuilder::create)
+                                .initial("")
+                                .minimumNumberOfEntries(3)
                                 .build())
                         .build())
                 //?}
