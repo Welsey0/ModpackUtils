@@ -184,7 +184,7 @@ publishMods {
 
     if (project.property("deps.minecraft_version") == "1.20.1") {
         modrinth("m1.20.1") {
-            projectId = "m5T5xmUy"
+            projectId = "wklFEiuR"
             accessToken = providers.environmentVariable("MODRINTH_TOKEN")
             requires(deps[0])
             minecraftVersionRange {
@@ -197,7 +197,7 @@ publishMods {
         }
 
         curseforge("c1.20.1") {
-            projectId = "1026394"
+            projectId = "1135297"
             accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
             requires(deps[0])
                 minecraftVersionRange {
@@ -213,7 +213,7 @@ publishMods {
 
     if (project.property("deps.minecraft_version") == "1.21.3") {
         modrinth("m1.21.3") {
-            projectId = "m5T5xmUy"
+            projectId = "wklFEiuR"
             accessToken = providers.environmentVariable("MODRINTH_TOKEN")
             requires(deps[0])
             minecraftVersionRange {
@@ -226,7 +226,7 @@ publishMods {
         }
 
         curseforge("c1.21.3") {
-            projectId = "1026394"
+            projectId = "1135297"
             accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
             requires(deps[0])
             minecraftVersionRange {
