@@ -222,7 +222,7 @@ public class ModpackUtilsGui {
                                 .build())
                         .group(ListOption.<String>createBuilder()
                                 .description(OptionDescription.createBuilder()
-                                        .text(Text.translatable("bettergrass.customMmc.desc"))
+                                        .text(Text.translatable("mutils.customMmc.desc"))
                                         .build())
                                 .binding(
                                         defaults.customMmc,

@@ -31,7 +31,7 @@
   "mutils.category.mmc": "MMC",
   "mutils.mmcIntg": "MainMenuCredits Integration",
   "mutils.mmcIntg.desc": "Normal: A simple text is shown on the Main Menu screen.\nFancy: Detailed, colorful lines of text are shown on the Main Menu screen.\nCustom: Refer to the wiki for info.",
-  "bettergrass.customMmc.desc": "3 entries required for each line. The placeholders in '<>' are filled automatically.",
+  "mutils.customMmc.desc": "3 entries required for each line. The placeholders in '<>' are filled automatically.",
   "mutils.category.ramAlert": "Ram Alert",
   "mutils.ramMenuAlert": "Ram Menu Alert",
   "mutils.ramMenuAlert.desc": "Shows a toast on the 'Main Menu'.",
