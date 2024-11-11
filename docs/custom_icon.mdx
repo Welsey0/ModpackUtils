@@ -1,0 +1,48 @@
+---
+title: Adding a Custom Icon
+hide_meta: true
+---
+
+To use a custom icon, first enable the `Custom Icon` setting _<small>(duh)</small>_ in the `Window Utils` tab.
+
+<Callout variant="info">
+  On the first run, you might experience a crash. This is completely normal.
+  This will be fixed once you add your icon files.
+</Callout>
+
+### Icon files
+
+- To add a custom icon, you need the following icon files:
+  - `icon_16x16.png`
+  - `icon_32x32.png`
+  - `icon_48x48.png`
+  - `icon_128x128.png`
+  - `icon_256x256.png`
+  - `minecraft.icns` _<small>(For all your **macOS** users)</small>_
+
+<Callout variant="info">
+  Tip! You can convert your original modpack logo file to images
+  of the above sizes by using [this
+  tool](https://jam.dev/utilities/image-resizer).
+</Callout>
+
+<br />
+
+<Callout variant="info">
+  Tip! You can convert your original modpack logo file to a `.icns` file by
+  using [this tool](https://github.com/idesis-gmbh/png2icons). _(I couldn't find
+  a reliable web utility :P)_
+</Callout>
+
+Now, put these icon files in this location:
+
+<FolderTreeIcon width={24} height={24} strokeWidth={1} />
+
+```
+.minecraft
+└── config
+    └── mutils
+        └── icons
+```
+
+Now, you should be all set! As always, if you still have any questions or if something goes wrong, you can ask for help on our [Discord server](https://discord.gg/kfKjjhv3pn).

@@ -1,6 +1,7 @@
 plugins {
     id "dev.architectury.loom" version "1.7-SNAPSHOT"
     id "me.modmuss50.mod-publish-plugin" version "0.7.4"
+    id "org.sinytra.wiki.toolkit" version "0.1.16"
 }
 
 def loader = property("loom.platform")
@@ -200,10 +201,10 @@ publishMods {
             projectId = "1135297"
             accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
             requires(deps[0])
-                minecraftVersionRange {
-                    start = "1.20"
-                    end = "1.20.1"
-                }
+            minecraftVersionRange {
+                start = "1.20"
+                end = "1.20.1"
+            }
 
             // Discord
             announcementTitle = "Download from CurseForge"
@@ -253,5 +254,13 @@ publishMods {
         webhookUrl = providers.environmentVariable("DISCORD_WEBHOOK")
         username = "${mod_name} Releases"
         avatarUrl = "https://cdn.modrinth.com/data/wklFEiuR/images/690d8f555972de3b24cd7ee82c083ebb6a3e2155.png"
+    }
+}
+
+wiki {
+    docs {
+        mutils {
+            root = file("../../docs")
+        }
     }
 }

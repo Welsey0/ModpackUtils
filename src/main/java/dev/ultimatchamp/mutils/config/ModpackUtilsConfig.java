@@ -87,7 +87,7 @@ public class ModpackUtilsConfig {
     public Boolean chatWelcome = false;
 
     @SerialEntry
-    public String chatWelcomeMessage = "Welcome from <modpack-name> <version>!";
+    public String chatWelcomeMessage = "Welcome to <modpack-name> <version>!";
 
     @SerialEntry
     public boolean customIcon = false;
