@@ -10,6 +10,7 @@ modrinth:
 
 <hr>
 
+[![Wiki](https://img.shields.io/badge/MUtils-Wiki-%2300AF5C?style=for-the-badge&logo=googledocs&logoColor=%23fff&color=blue)](https://moddedmc.org/en/mod/mutils/docs)
 [![Discord](https://img.shields.io/badge/Discord-Server-%2300AF5C?style=for-the-badge&logo=discord&logoColor=%23fff&color=%235865F2)](https://discord.gg/kfKjjhv3pn)
 [![GitHub](https://img.shields.io/badge/On-GitHub-%230D1117?style=for-the-badge&logo=github)](https://github.com/UltimatChamp/ModpackUtils)
 [![Modrinth](https://img.shields.io/badge/On-Modrinth-%2300AF5C?style=for-the-badge&logo=modrinth)](https://modrinth.com/mod/mutils)
@@ -28,7 +29,7 @@ _Various utilities for modpacks!_
 
 <hr>
 
-**ModpackUtils** is a highly-customizeable mod for modpack developers to curate their modpacks for their users. The mod is completely open-source, and has a detailed wiki (⚠️Under Construction), for all its features. Need help? Join our [Discord server](https://discord.gg/kfKjjhv3pn).
+**ModpackUtils** is a highly-customizeable mod for modpack developers to curate their modpacks for their users. The mod is completely open-source, and has a detailed [wiki](https://moddedmc.org/en/mod/mutils/docs), for all its features. Need help? Join our [Discord server](https://discord.gg/kfKjjhv3pn).
 
 ## Features
 
@@ -75,7 +76,7 @@ Toast notifications appear once on the **Title Screen**, just after loading the 
 - **Fancy:** Detailed, colorful lines of text are shown on the **Title Screen**.
 <center><img alt="Image" width="500px" src="https://cdn.modrinth.com/data/wklFEiuR/images/3f30c098d0146265d173a80ad280fc9997b227bb.png"></center>
 
-- **Custom:** Refer to the wiki for info.
+- **Custom:** Refer to the [wiki](https://moddedmc.org/en/mod/mutils/docs) for more info.
 
 <hr>
 
