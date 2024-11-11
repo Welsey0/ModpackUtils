@@ -38,7 +38,8 @@
       "links": {
         "modmenu.modrinth": "https://modrinth.com/mod/mutils",
         "modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/mutils",
-        "modmenu.discord": "https://discord.gg/kfKjjhv3pn"
+        "modmenu.discord": "https://discord.gg/kfKjjhv3pn",
+        "modmenu.wiki": "https://moddedmc.org/en/mod/mutils/docs"
       },
       "update_checker": true
     }
