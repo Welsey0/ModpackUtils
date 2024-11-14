@@ -110,6 +110,19 @@ public class ModpackUtilsGui {
                                 )
                                 .controller(StringControllerBuilder::create)
                                 .build())
+                        .option(Option.<Boolean>createBuilder()
+                                .name(Text.translatable("mutils.checkMcVersion"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Text.translatable("mutils.checkMcVersion.desc"))
+                                        .build())
+                                .binding(
+                                        defaults.checkMcVersion,
+                                        () -> config.checkMcVersion,
+                                        (value) -> config.checkMcVersion = value
+                                )
+                                .available(ModpackUtilsConfig.instance().platform != ModpackUtilsConfig.Platforms.CUSTOM)
+                                .controller(BooleanControllerBuilder::create)
+                                .build())
                         .option(Option.<String>createBuilder()
                                 .name(Text.translatable("mutils.versionAPI"))
                                 .description(OptionDescription.createBuilder()
@@ -135,6 +148,21 @@ public class ModpackUtilsGui {
                                 )
                                 .available(ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.CUSTOM)
                                 .controller(StringControllerBuilder::create)
+                                .build())
+                        .group(ListOption.<String>createBuilder()
+                                .name(Text.translatable("mutils.versionType"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Text.translatable("mutils.versionType.desc"))
+                                        .build())
+                                .binding(
+                                        defaults.versionType,
+                                        () -> config.versionType,
+                                        val -> config.versionType = val
+                                )
+                                .available(ModpackUtilsConfig.instance().platform != ModpackUtilsConfig.Platforms.CUSTOM)
+                                .controller(StringControllerBuilder::create)
+                                .initial("")
+                                .minimumNumberOfEntries(1)
                                 .build())
                         .build())
                 .category(ConfigCategory.createBuilder()

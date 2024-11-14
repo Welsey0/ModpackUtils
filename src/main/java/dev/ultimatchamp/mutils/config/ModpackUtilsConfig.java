@@ -37,6 +37,7 @@ public class ModpackUtilsConfig {
                     .build())
             .build();
 
+    // Update Notifier
     @SerialEntry
     public boolean menuAlert = false;
 
@@ -78,17 +79,25 @@ public class ModpackUtilsConfig {
     public String localVersion = "1.0.0";
 
     @SerialEntry
+    public Boolean checkMcVersion = false;
+
+    @SerialEntry
     public String versionAPI = "https://raw.githubusercontent.com/me/My-Modpack/main/Packwiz/pack.toml";
 
     @SerialEntry
     public String changelogLink = "https://raw.githubusercontent.com/me/My-Modpack/main/CHANGELOG.md";
 
     @SerialEntry
+    public List<String> versionType = List.of("release", "beta", "alpha");
+
+    // Chat Welcome
+    @SerialEntry
     public Boolean chatWelcome = false;
 
     @SerialEntry
     public String chatWelcomeMessage = "Welcome to <modpack-name> <version>!";
 
+    // Window Utils
     @SerialEntry
     public boolean customIcon = false;
 
@@ -99,6 +108,7 @@ public class ModpackUtilsConfig {
     public String title = "<modpack-name> <version> | Minecraft <mc>";
 
     //? if fabric {
+    // MMC
     @SerialEntry
     public MmcStyle mainMenuCreditsIntegeration = MmcStyle.OFF;
 
@@ -131,6 +141,7 @@ public class ModpackUtilsConfig {
     );
     //?}
 
+    // Ram Alert
     @SerialEntry
     public boolean ramMenuAlert = false;
 

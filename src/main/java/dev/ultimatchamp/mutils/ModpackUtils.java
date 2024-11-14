@@ -2,6 +2,7 @@ package dev.ultimatchamp.mutils;
 
 import com.google.gson.JsonParser;
 import dev.ultimatchamp.mutils.config.ModpackUtilsConfig;
+import net.minecraft.client.MinecraftClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,7 +64,22 @@ public class ModpackUtils {
 
     private static String parseModrinthResponse(String response) {
         var jsonArray = JsonParser.parseString(response).getAsJsonArray();
-        return jsonArray.isEmpty() ? null : jsonArray.get(0).getAsJsonObject().get("version_number").getAsString();
+
+        for (var i = 0; i < jsonArray.size(); i++) {
+            var jsonObject = jsonArray.get(i).getAsJsonObject();
+
+            if (ModpackUtilsConfig.instance().versionType.contains(jsonObject.get("version_type").getAsString())) {
+                if (ModpackUtilsConfig.instance().checkMcVersion) {
+                    if (MinecraftClient.getInstance().getGameVersion().equals(jsonObject.get("game_versions").getAsJsonArray().get(0).getAsString())) {
+                        return jsonObject.get("version_number").getAsString();
+                    }
+                } else {
+                    return jsonObject.get("version_number").getAsString();
+                }
+            }
+        }
+
+        return null;
     }
 
     private static String parseOtherPlatformResponse(String response) {
