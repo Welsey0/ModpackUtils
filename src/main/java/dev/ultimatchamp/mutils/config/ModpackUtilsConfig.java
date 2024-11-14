@@ -82,6 +82,17 @@ public class ModpackUtilsConfig {
     public Boolean checkMcVersion = false;
 
     @SerialEntry
+    public String loader =
+            //? if fabric {
+            "fabric"
+            //?} else if neo {
+            /*"neoforge"
+            *///?} else if forge {
+            /*"forge"
+            *///?}
+            ;
+
+    @SerialEntry
     public String versionAPI = "https://raw.githubusercontent.com/me/My-Modpack/main/Packwiz/pack.toml";
 
     @SerialEntry

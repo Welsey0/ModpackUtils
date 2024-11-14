@@ -124,6 +124,19 @@ public class ModpackUtilsGui {
                                 .controller(BooleanControllerBuilder::create)
                                 .build())
                         .option(Option.<String>createBuilder()
+                                .name(Text.translatable("mutils.loader"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Text.translatable("mutils.loader.desc"))
+                                        .build())
+                                .binding(
+                                        defaults.loader,
+                                        () -> config.loader,
+                                        (value) -> config.loader = value
+                                )
+                                .available(ModpackUtilsConfig.instance().platform != ModpackUtilsConfig.Platforms.CUSTOM)
+                                .controller(StringControllerBuilder::create)
+                                .build())
+                        .option(Option.<String>createBuilder()
                                 .name(Text.translatable("mutils.versionAPI"))
                                 .description(OptionDescription.createBuilder()
                                         .text(Text.translatable("mutils.versionAPI.desc"))

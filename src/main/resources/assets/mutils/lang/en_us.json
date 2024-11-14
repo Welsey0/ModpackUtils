@@ -18,6 +18,8 @@
   "mutils.localVersion.desc": "Version currently installed.",
   "mutils.checkMcVersion": "Check Minecraft Version",
   "mutils.checkMcVersion.desc": "Fetches the modpack version compatible with the current Minecraft version.",
+  "mutils.loader": "Loader",
+  "mutils.loader.desc": "Fetches the modpack version compatible with the current modloader.",
   "mutils.versionAPI": "Version API",
   "mutils.versionAPI.desc": "The link of your modpack's 'pack.toml' file, if using Packwiz. You can also use a 'txt' file with a 'version = \"\"' field.",
   "mutils.changelogLink": "Changelog Link",

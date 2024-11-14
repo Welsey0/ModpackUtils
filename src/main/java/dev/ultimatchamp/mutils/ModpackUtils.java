@@ -69,12 +69,14 @@ public class ModpackUtils {
             var jsonObject = jsonArray.get(i).getAsJsonObject();
 
             if (ModpackUtilsConfig.instance().versionType.contains(jsonObject.get("version_type").getAsString())) {
-                if (ModpackUtilsConfig.instance().checkMcVersion) {
-                    if (MinecraftClient.getInstance().getGameVersion().equals(jsonObject.get("game_versions").getAsJsonArray().get(0).getAsString())) {
+                if (ModpackUtilsConfig.instance().loader.equals(jsonObject.get("loaders").getAsJsonArray().get(0).getAsString())) {
+                    if (ModpackUtilsConfig.instance().checkMcVersion) {
+                        if (MinecraftClient.getInstance().getGameVersion().equals(jsonObject.get("game_versions").getAsJsonArray().get(0).getAsString())) {
+                            return jsonObject.get("version_number").getAsString();
+                        }
+                    } else {
                         return jsonObject.get("version_number").getAsString();
                     }
-                } else {
-                    return jsonObject.get("version_number").getAsString();
                 }
             }
         }
