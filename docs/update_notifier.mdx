@@ -3,9 +3,9 @@ title: Update Notifier Setup
 hide_meta: true
 ---
 
-### On Modrinth
+### On Modrinth/CurseForge
 
-Let's start with a simple setup, for a modpack that is hosted on **Modrinth**.
+Let's start with a simple setup, for a modpack that is hosted on **Modrinth/CurseForge**.
 
 This is the default config screen:
 
@@ -41,6 +41,13 @@ This is the default config screen:
   _(`release`, `beta` and `alpha`)_, which may not be desired. You can remove
   `beta` and `alpha`, if it is a stable release.
 
+- `Display Name Filters` fetches the modpack version with the display name
+  containing all the filters here. This option can be set empty to disable
+  it.
+
+- `Version Number Filters` fetches the modpack version containing all the
+  filters here. This option can also be set empty to disable it.
+
 - If everything was done correctly, you should see a chat message when you join
   a new world.
 
@@ -72,7 +79,7 @@ section. Now, let's look at the new options:
 
   For example,
 
-  ```toml title="📁 pack.txt"
+  ```toml title="📄 pack.txt"
   version = "1.0.0"
   ```
 

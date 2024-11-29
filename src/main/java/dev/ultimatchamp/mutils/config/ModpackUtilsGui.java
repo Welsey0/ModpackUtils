@@ -177,6 +177,34 @@ public class ModpackUtilsGui {
                                 .initial("")
                                 .minimumNumberOfEntries(1)
                                 .build())
+                        .group(ListOption.<String>createBuilder()
+                                .name(Text.translatable("mutils.nameFilters"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Text.translatable("mutils.nameFilters.desc"))
+                                        .build())
+                                .binding(
+                                        defaults.nameFilters,
+                                        () -> config.nameFilters,
+                                        val -> config.nameFilters = val
+                                )
+                                .available(ModpackUtilsConfig.instance().platform != ModpackUtilsConfig.Platforms.CUSTOM)
+                                .controller(StringControllerBuilder::create)
+                                .initial("")
+                                .build())
+                        .group(ListOption.<String>createBuilder()
+                                .name(Text.translatable("mutils.versionFilters"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Text.translatable("mutils.versionFilters.desc"))
+                                        .build())
+                                .binding(
+                                        defaults.versionFilters,
+                                        () -> config.versionFilters,
+                                        val -> config.versionFilters = val
+                                )
+                                .available(ModpackUtilsConfig.instance().platform != ModpackUtilsConfig.Platforms.CUSTOM)
+                                .controller(StringControllerBuilder::create)
+                                .initial("")
+                                .build())
                         .build())
                 .category(ConfigCategory.createBuilder()
                         .name(Text.translatable("mutils.category.chatWelcome"))

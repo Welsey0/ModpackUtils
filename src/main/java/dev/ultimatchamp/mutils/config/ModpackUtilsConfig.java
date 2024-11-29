@@ -1,5 +1,6 @@
 package dev.ultimatchamp.mutils.config;
 
+import com.google.common.collect.Lists;
 import dev.isxander.yacl3.api.NameableEnum;
 import dev.isxander.yacl3.config.v2.api.ConfigClassHandler;
 import dev.isxander.yacl3.config.v2.api.SerialEntry;
@@ -52,7 +53,8 @@ public class ModpackUtilsConfig {
 
     public enum Platforms implements NameableEnum {
         CUSTOM("generator.custom"),
-        MODRINTH("mutils.modrinth");
+        MODRINTH("mutils.modrinth"),
+        CURSEFORGE("mutils.curseforge");
 
         private final String displayName;
 
@@ -100,6 +102,12 @@ public class ModpackUtilsConfig {
 
     @SerialEntry
     public List<String> versionType = List.of("release", "beta", "alpha");
+
+    @SerialEntry
+    public List<String> nameFilters = Lists.newArrayList();
+
+    @SerialEntry
+    public List<String> versionFilters = Lists.newArrayList();
 
     // Chat Welcome
     @SerialEntry

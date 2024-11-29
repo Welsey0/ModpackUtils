@@ -23,9 +23,11 @@ public class MainMenuCreditAPIImpl implements MainMenuCreditAPI {
                             arg.withClickEvent(
                                     new ClickEvent(
                                             ClickEvent.Action.OPEN_URL,
-                                            ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.MODRINTH
+                                            ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.CUSTOM
+                                                    ? ModpackUtilsConfig.instance().modpackHome
+                                                    : ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.MODRINTH
                                                     ? "https://modrinth.com/modpack/" + ModpackUtilsConfig.instance().modpackId + "/version/" + ModpackUtilsConfig.instance().localVersion
-                                                    : ModpackUtilsConfig.instance().modpackHome
+                                                    : "https://www.curseforge.com/minecraft/modpacks/" + ModpackUtilsConfig.instance().modpackId + "/" + ModpackUtils.getLocalFileId()
                                     )
                             )
                     )
@@ -40,9 +42,11 @@ public class MainMenuCreditAPIImpl implements MainMenuCreditAPI {
                             .withClickEvent(
                                     new ClickEvent(
                                             ClickEvent.Action.OPEN_URL,
-                                            ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.MODRINTH
+                                            ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.CUSTOM
+                                                    ? ModpackUtilsConfig.instance().changelogLink
+                                                    : ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.MODRINTH
                                                     ? "https://modrinth.com/modpack/" + ModpackUtilsConfig.instance().modpackId + "/version/" + ModpackUtilsConfig.instance().localVersion
-                                                    : ModpackUtilsConfig.instance().changelogLink
+                                                    : "https://www.curseforge.com/minecraft/modpacks/" + ModpackUtilsConfig.instance().modpackId + "/" + ModpackUtils.getLocalFileId()
                                     )
                             )
                     )
@@ -57,9 +61,11 @@ public class MainMenuCreditAPIImpl implements MainMenuCreditAPI {
                             .withClickEvent(
                                     new ClickEvent(
                                             ClickEvent.Action.OPEN_URL,
-                                            ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.MODRINTH
+                                            ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.CUSTOM
+                                                    ? ModpackUtilsConfig.instance().modpackHome
+                                                    : ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.MODRINTH
                                                     ? "https://modrinth.com/modpack/" + ModpackUtilsConfig.instance().modpackId
-                                                    : ModpackUtilsConfig.instance().modpackHome
+                                                    : "https://www.curseforge.com/minecraft/modpacks/" + ModpackUtilsConfig.instance().modpackId
                                     )
                             )
                     )
@@ -75,13 +81,17 @@ public class MainMenuCreditAPIImpl implements MainMenuCreditAPI {
 
                     String link = ModpackUtilsConfig.instance().customMmc.get(i + 2)
                             .replaceAll("<modpack-home>",
-                                    ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.MODRINTH
+                                    ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.CUSTOM
+                                            ? ModpackUtilsConfig.instance().modpackHome
+                                            : ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.MODRINTH
                                             ? "https://modrinth.com/modpack/" + ModpackUtilsConfig.instance().modpackId
-                                            : ModpackUtilsConfig.instance().modpackHome)
+                                            : "https://www.curseforge.com/minecraft/modpacks/" + ModpackUtilsConfig.instance().modpackId)
                             .replaceAll("<version-link>",
-                                    ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.MODRINTH
+                                    ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.CUSTOM
+                                            ? ModpackUtilsConfig.instance().changelogLink
+                                            : ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.MODRINTH
                                             ? "https://modrinth.com/modpack/" + ModpackUtilsConfig.instance().modpackId + "/version/" + ModpackUtilsConfig.instance().localVersion
-                                            : ModpackUtilsConfig.instance().changelogLink);
+                                            : "https://www.curseforge.com/minecraft/modpacks/" + ModpackUtilsConfig.instance().modpackId + "/" + ModpackUtils.getLocalFileId());
                     list.add(Text.literal(text).styled(arg -> arg
                             //? if >1.20.1 {
                             .withColor(TextColor.parse(color).getOrThrow())

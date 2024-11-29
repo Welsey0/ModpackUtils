@@ -38,9 +38,11 @@ public class ClientPlayNetworkHandlerMixin {
                                     .withColor(Formatting.YELLOW)
                                     .withClickEvent(new ClickEvent(
                                             ClickEvent.Action.OPEN_URL,
-                                            ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.MODRINTH
-                                                    ? "https://modrinth.com/modpack/" + ModpackUtilsConfig.instance().modpackId + "/version/" + ModpackUtils.getLatestVersion()
-                                                    : ModpackUtilsConfig.instance().changelogLink
+                                            ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.CUSTOM
+                                                    ? ModpackUtilsConfig.instance().changelogLink
+                                                    : ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.MODRINTH
+                                                    ? "https://modrinth.com/modpack/" + ModpackUtilsConfig.instance().modpackId + "/version/" + ModpackUtilsConfig.instance().localVersion
+                                                    : "https://www.curseforge.com/minecraft/modpacks/" + ModpackUtilsConfig.instance().modpackId + "/" + ModpackUtils.getLatestFileId()
                                     ))
                             ),
                     false
