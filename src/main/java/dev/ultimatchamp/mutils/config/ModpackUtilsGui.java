@@ -3,19 +3,19 @@ package dev.ultimatchamp.mutils.config;
 import dev.isxander.yacl3.api.*;
 import dev.isxander.yacl3.api.controller.*;
 import dev.isxander.yacl3.gui.controllers.cycling.EnumController;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
 
 public class ModpackUtilsGui {
     public static Screen createConfigScreen(Screen parent) {
         return YetAnotherConfigLib.create(ModpackUtilsConfig.handler(), (defaults, config, builder) -> builder
-                .title(Text.translatable("mutils.title"))
+                .title(Component.translatable("mutils.title"))
                 .category(ConfigCategory.createBuilder()
-                        .name(Text.translatable("mutils.category.update"))
+                        .name(Component.translatable("mutils.category.update"))
                         .option(Option.<Boolean>createBuilder()
-                                .name(Text.translatable("mutils.menuAlert"))
+                                .name(Component.translatable("mutils.menuAlert"))
                                 .description(OptionDescription.createBuilder()
-                                        .text(Text.translatable("mutils.menuAlert.desc"))
+                                        .text(Component.translatable("mutils.menuAlert.desc"))
                                         .build())
                                 .binding(
                                         defaults.menuAlert,
@@ -25,9 +25,9 @@ public class ModpackUtilsGui {
                                 .controller(TickBoxControllerBuilder::create)
                                 .build())
                         .option(Option.<Boolean>createBuilder()
-                                .name(Text.translatable("mutils.chatAlert"))
+                                .name(Component.translatable("mutils.chatAlert"))
                                 .description(OptionDescription.createBuilder()
-                                        .text(Text.translatable("mutils.chatAlert.desc"))
+                                        .text(Component.translatable("mutils.chatAlert.desc"))
                                         .build())
                                 .binding(
                                         defaults.chatAlert,
@@ -37,9 +37,9 @@ public class ModpackUtilsGui {
                                 .controller(TickBoxControllerBuilder::create)
                                 .build())
                         .option(Option.<String>createBuilder()
-                                .name(Text.translatable("gui.abuseReport.type.chat"))
+                                .name(Component.translatable("gui.abuseReport.type.chat"))
                                 .description(OptionDescription.createBuilder()
-                                        .text(Text.translatable("mutils.chatMessage.desc"))
+                                        .text(Component.translatable("mutils.chatMessage.desc"))
                                         .build())
                                 .binding(
                                         defaults.chatMessage,
@@ -49,9 +49,9 @@ public class ModpackUtilsGui {
                                 .controller(StringControllerBuilder::create)
                                 .build())
                         .option(Option.<ModpackUtilsConfig.Platforms>createBuilder()
-                                .name(Text.translatable("telemetry.property.platform.title"))
+                                .name(Component.translatable("telemetry.property.platform.title"))
                                 .description(OptionDescription.createBuilder()
-                                        .text(Text.translatable("mutils.platform.desc"))
+                                        .text(Component.translatable("mutils.platform.desc"))
                                         .build())
                                 .binding(
                                         defaults.platform,
@@ -61,9 +61,9 @@ public class ModpackUtilsGui {
                                 .customController(opt -> new EnumController<>(opt, ModpackUtilsConfig.Platforms.class))
                                 .build())
                         .option(Option.<String>createBuilder()
-                                .name(Text.translatable("mutils.modpackName"))
+                                .name(Component.translatable("mutils.modpackName"))
                                 .description(OptionDescription.createBuilder()
-                                        .text(Text.translatable("mutils.modpackName.desc"))
+                                        .text(Component.translatable("mutils.modpackName.desc"))
                                         .build())
                                 .binding(
                                         defaults.modpackName,
@@ -73,9 +73,9 @@ public class ModpackUtilsGui {
                                 .controller(StringControllerBuilder::create)
                                 .build())
                         .option(Option.<String>createBuilder()
-                                .name(Text.translatable("mutils.modpackId"))
+                                .name(Component.translatable("mutils.modpackId"))
                                 .description(OptionDescription.createBuilder()
-                                        .text(Text.translatable("mutils.modpackId.desc"))
+                                        .text(Component.translatable("mutils.modpackId.desc"))
                                         .build())
                                 .binding(
                                         defaults.modpackId,
@@ -86,9 +86,9 @@ public class ModpackUtilsGui {
                                 .controller(StringControllerBuilder::create)
                                 .build())
                         .option(Option.<String>createBuilder()
-                                .name(Text.translatable("mutils.modpackHome"))
+                                .name(Component.translatable("mutils.modpackHome"))
                                 .description(OptionDescription.createBuilder()
-                                        .text(Text.translatable("mutils.modpackHome.desc"))
+                                        .text(Component.translatable("mutils.modpackHome.desc"))
                                         .build())
                                 .binding(
                                         defaults.modpackHome,
@@ -99,9 +99,9 @@ public class ModpackUtilsGui {
                                 .controller(StringControllerBuilder::create)
                                 .build())
                         .option(Option.<String>createBuilder()
-                                .name(Text.translatable("mutils.localVersion"))
+                                .name(Component.translatable("mutils.localVersion"))
                                 .description(OptionDescription.createBuilder()
-                                        .text(Text.translatable("mutils.localVersion.desc"))
+                                        .text(Component.translatable("mutils.localVersion.desc"))
                                         .build())
                                 .binding(
                                         defaults.localVersion,
@@ -111,9 +111,9 @@ public class ModpackUtilsGui {
                                 .controller(StringControllerBuilder::create)
                                 .build())
                         .option(Option.<Boolean>createBuilder()
-                                .name(Text.translatable("mutils.checkMcVersion"))
+                                .name(Component.translatable("mutils.checkMcVersion"))
                                 .description(OptionDescription.createBuilder()
-                                        .text(Text.translatable("mutils.checkMcVersion.desc"))
+                                        .text(Component.translatable("mutils.checkMcVersion.desc"))
                                         .build())
                                 .binding(
                                         defaults.checkMcVersion,
@@ -124,9 +124,9 @@ public class ModpackUtilsGui {
                                 .controller(BooleanControllerBuilder::create)
                                 .build())
                         .option(Option.<String>createBuilder()
-                                .name(Text.translatable("mutils.loader"))
+                                .name(Component.translatable("mutils.loader"))
                                 .description(OptionDescription.createBuilder()
-                                        .text(Text.translatable("mutils.loader.desc"))
+                                        .text(Component.translatable("mutils.loader.desc"))
                                         .build())
                                 .binding(
                                         defaults.loader,
@@ -137,9 +137,9 @@ public class ModpackUtilsGui {
                                 .controller(StringControllerBuilder::create)
                                 .build())
                         .option(Option.<String>createBuilder()
-                                .name(Text.translatable("mutils.versionAPI"))
+                                .name(Component.translatable("mutils.versionAPI"))
                                 .description(OptionDescription.createBuilder()
-                                        .text(Text.translatable("mutils.versionAPI.desc"))
+                                        .text(Component.translatable("mutils.versionAPI.desc"))
                                         .build())
                                 .binding(
                                         defaults.versionAPI,
@@ -150,9 +150,9 @@ public class ModpackUtilsGui {
                                 .controller(StringControllerBuilder::create)
                                 .build())
                         .option(Option.<String>createBuilder()
-                                .name(Text.translatable("mutils.changelogLink"))
+                                .name(Component.translatable("mutils.changelogLink"))
                                 .description(OptionDescription.createBuilder()
-                                        .text(Text.translatable("mutils.changelogLink.desc"))
+                                        .text(Component.translatable("mutils.changelogLink.desc"))
                                         .build())
                                 .binding(
                                         defaults.changelogLink,
@@ -163,9 +163,9 @@ public class ModpackUtilsGui {
                                 .controller(StringControllerBuilder::create)
                                 .build())
                         .group(ListOption.<String>createBuilder()
-                                .name(Text.translatable("mutils.versionType"))
+                                .name(Component.translatable("mutils.versionType"))
                                 .description(OptionDescription.createBuilder()
-                                        .text(Text.translatable("mutils.versionType.desc"))
+                                        .text(Component.translatable("mutils.versionType.desc"))
                                         .build())
                                 .binding(
                                         defaults.versionType,
@@ -178,9 +178,9 @@ public class ModpackUtilsGui {
                                 .minimumNumberOfEntries(1)
                                 .build())
                         .group(ListOption.<String>createBuilder()
-                                .name(Text.translatable("mutils.nameFilters"))
+                                .name(Component.translatable("mutils.nameFilters"))
                                 .description(OptionDescription.createBuilder()
-                                        .text(Text.translatable("mutils.nameFilters.desc"))
+                                        .text(Component.translatable("mutils.nameFilters.desc"))
                                         .build())
                                 .binding(
                                         defaults.nameFilters,
@@ -192,9 +192,9 @@ public class ModpackUtilsGui {
                                 .initial("")
                                 .build())
                         .group(ListOption.<String>createBuilder()
-                                .name(Text.translatable("mutils.versionFilters"))
+                                .name(Component.translatable("mutils.versionFilters"))
                                 .description(OptionDescription.createBuilder()
-                                        .text(Text.translatable("mutils.versionFilters.desc"))
+                                        .text(Component.translatable("mutils.versionFilters.desc"))
                                         .build())
                                 .binding(
                                         defaults.versionFilters,
@@ -207,11 +207,11 @@ public class ModpackUtilsGui {
                                 .build())
                         .build())
                 .category(ConfigCategory.createBuilder()
-                        .name(Text.translatable("mutils.category.chatWelcome"))
+                        .name(Component.translatable("mutils.category.chatWelcome"))
                         .option(Option.<Boolean>createBuilder()
-                                .name(Text.translatable("mutils.category.chatWelcome"))
+                                .name(Component.translatable("mutils.category.chatWelcome"))
                                 .description(OptionDescription.createBuilder()
-                                        .text(Text.translatable("mutils.chatAlert.desc"))
+                                        .text(Component.translatable("mutils.chatAlert.desc"))
                                         .build())
                                 .binding(
                                         defaults.chatWelcome,
@@ -221,9 +221,9 @@ public class ModpackUtilsGui {
                                 .controller(TickBoxControllerBuilder::create)
                                 .build())
                         .option(Option.<String>createBuilder()
-                                .name(Text.translatable("gui.abuseReport.type.chat"))
+                                .name(Component.translatable("gui.abuseReport.type.chat"))
                                 .description(OptionDescription.createBuilder()
-                                        .text(Text.translatable("mutils.chatWelcomeMessage.desc"))
+                                        .text(Component.translatable("mutils.chatWelcomeMessage.desc"))
                                         .build())
                                 .binding(
                                         defaults.chatWelcomeMessage,
@@ -235,11 +235,11 @@ public class ModpackUtilsGui {
                                 .build())
                         .build())
                 .category(ConfigCategory.createBuilder()
-                        .name(Text.translatable("mutils.category.window"))
+                        .name(Component.translatable("mutils.category.window"))
                         .option(Option.<Boolean>createBuilder()
-                                .name(Text.translatable("mutils.customIcon"))
+                                .name(Component.translatable("mutils.customIcon"))
                                 .description(OptionDescription.createBuilder()
-                                        .text(Text.translatable("mutils.customIcon.desc"))
+                                        .text(Component.translatable("mutils.customIcon.desc"))
                                         .build())
                                 .binding(
                                         defaults.customIcon,
@@ -249,9 +249,9 @@ public class ModpackUtilsGui {
                                 .controller(TickBoxControllerBuilder::create)
                                 .build())
                         .option(Option.<Boolean>createBuilder()
-                                .name(Text.translatable("mutils.customTitle"))
+                                .name(Component.translatable("mutils.customTitle"))
                                 .description(OptionDescription.createBuilder()
-                                        .text(Text.translatable("mutils.customTitle.desc"))
+                                        .text(Component.translatable("mutils.customTitle.desc"))
                                         .build())
                                 .binding(
                                         defaults.customTitle,
@@ -261,9 +261,9 @@ public class ModpackUtilsGui {
                                 .controller(TickBoxControllerBuilder::create)
                                 .build())
                         .option(Option.<String>createBuilder()
-                                .name(Text.translatable("mco.backup.entry.name"))
+                                .name(Component.translatable("mco.backup.entry.name"))
                                 .description(OptionDescription.createBuilder()
-                                        .text(Text.translatable("mutils.cTitle.desc"))
+                                        .text(Component.translatable("mutils.cTitle.desc"))
                                         .build())
                                 .binding(
                                         defaults.title,
@@ -276,11 +276,11 @@ public class ModpackUtilsGui {
                         .build())
                 //? if fabric {
                 .category(ConfigCategory.createBuilder()
-                        .name(Text.translatable("mutils.category.mmc"))
+                        .name(Component.translatable("mutils.category.mmc"))
                         .option(Option.<ModpackUtilsConfig.MmcStyle>createBuilder()
-                                .name(Text.translatable("mutils.mmcIntg"))
+                                .name(Component.translatable("mutils.mmcIntg"))
                                 .description(OptionDescription.createBuilder()
-                                        .text(Text.translatable("mutils.mmcIntg.desc"))
+                                        .text(Component.translatable("mutils.mmcIntg.desc"))
                                         .build())
                                 .binding(
                                         defaults.mainMenuCreditsIntegeration,
@@ -291,7 +291,7 @@ public class ModpackUtilsGui {
                                 .build())
                         .group(ListOption.<String>createBuilder()
                                 .description(OptionDescription.createBuilder()
-                                        .text(Text.translatable("mutils.customMmc.desc"))
+                                        .text(Component.translatable("mutils.customMmc.desc"))
                                         .build())
                                 .binding(
                                         defaults.customMmc,
@@ -306,11 +306,11 @@ public class ModpackUtilsGui {
                         .build())
                 //?}
                 .category(ConfigCategory.createBuilder()
-                        .name(Text.translatable("mutils.category.ramAlert"))
+                        .name(Component.translatable("mutils.category.ramAlert"))
                         .option(Option.<Boolean>createBuilder()
-                                .name(Text.translatable("mutils.ramMenuAlert"))
+                                .name(Component.translatable("mutils.ramMenuAlert"))
                                 .description(OptionDescription.createBuilder()
-                                        .text(Text.translatable("mutils.ramMenuAlert.desc"))
+                                        .text(Component.translatable("mutils.ramMenuAlert.desc"))
                                         .build())
                                 .binding(
                                         defaults.ramMenuAlert,
@@ -320,9 +320,9 @@ public class ModpackUtilsGui {
                                 .controller(TickBoxControllerBuilder::create)
                                 .build())
                         .option(Option.<Boolean>createBuilder()
-                                .name(Text.translatable("mutils.ramChatAlert"))
+                                .name(Component.translatable("mutils.ramChatAlert"))
                                 .description(OptionDescription.createBuilder()
-                                        .text(Text.translatable("mutils.ramChatAlert.desc"))
+                                        .text(Component.translatable("mutils.ramChatAlert.desc"))
                                         .build())
                                 .binding(
                                         defaults.ramChatAlert,
@@ -332,7 +332,7 @@ public class ModpackUtilsGui {
                                 .controller(TickBoxControllerBuilder::create)
                                 .build())
                         .option(Option.<Integer>createBuilder()
-                                .name(Text.translatable("mutils.minRam"))
+                                .name(Component.translatable("mutils.minRam"))
                                 .binding(
                                         defaults.minRam,
                                         () -> config.minRam,

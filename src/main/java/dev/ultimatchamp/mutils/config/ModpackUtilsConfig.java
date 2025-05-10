@@ -5,9 +5,9 @@ import dev.isxander.yacl3.api.NameableEnum;
 import dev.isxander.yacl3.config.v2.api.ConfigClassHandler;
 import dev.isxander.yacl3.config.v2.api.SerialEntry;
 import dev.isxander.yacl3.config.v2.api.serializer.GsonConfigSerializerBuilder;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
 
 import java.nio.file.Path;
@@ -15,31 +15,29 @@ import java.util.List;
 
 //? if fabric {
 import net.fabricmc.loader.api.FabricLoader;
-//?} else neo {
-/*import net.neoforged.fml.loading.FMLPaths;
-*///?} else {
-/*import net.minecraftforge.fml.loading.FMLPaths;
-*///?}
+//?} else neoforge {
+//import net.neoforged.fml.loading.FMLPaths;
+//?} else {
+//import net.minecraftforge.fml.loading.FMLPaths;
+//?}
 
 public class ModpackUtilsConfig {
     public static Path CONFIG_DIR =
             //? if fabric {
-            FabricLoader.getInstance().getConfigDir()
+            FabricLoader.getInstance().getConfigDir();
             //?} else {
-            /*FMLPaths.CONFIGDIR.get()
-            *///?}
-            ;
+            //FMLPaths.CONFIGDIR.get();
+            //?}
 
     private static final ConfigClassHandler<ModpackUtilsConfig> GSON = ConfigClassHandler.createBuilder(ModpackUtilsConfig.class)
-            .id(Identifier.of("mutils", "config"))
+            .id(ResourceLocation.fromNamespaceAndPath("mutils", "config"))
             .serializer(config -> GsonConfigSerializerBuilder.create(config)
                     .setPath(CONFIG_DIR.resolve("mutils/mutils.json5"))
                     .setJson5(true)
                     .build())
             .build();
 
-    // Update Notifier
-    @SerialEntry
+    @SerialEntry(comment = "Update Notifier")
     public boolean menuAlert = false;
 
     @SerialEntry
@@ -63,8 +61,8 @@ public class ModpackUtilsConfig {
         }
 
         @Override
-        public Text getDisplayName() {
-            return Text.translatable(displayName);
+        public Component getDisplayName() {
+            return Component.translatable(displayName);
         }
     }
 
@@ -86,13 +84,10 @@ public class ModpackUtilsConfig {
     @SerialEntry
     public String loader =
             //? if fabric {
-            "fabric"
-            //?} else if neo {
-            /*"neoforge"
-            *///?} else if forge {
-            /*"forge"
-            *///?}
-            ;
+            "fabric";
+            //?} else if neoforge {
+            //"neoforge";
+            //?}
 
     @SerialEntry
     public String versionAPI = "https://raw.githubusercontent.com/me/My-Modpack/main/Packwiz/pack.toml";
@@ -109,15 +104,13 @@ public class ModpackUtilsConfig {
     @SerialEntry
     public List<String> versionFilters = Lists.newArrayList();
 
-    // Chat Welcome
-    @SerialEntry
+    @SerialEntry(comment = "Chat Welcome")
     public Boolean chatWelcome = false;
 
     @SerialEntry
     public String chatWelcomeMessage = "Welcome to <modpack-name> <version>!";
 
-    // Window Utils
-    @SerialEntry
+    @SerialEntry(comment = "Window Utils")
     public boolean customIcon = false;
 
     @SerialEntry
@@ -127,8 +120,7 @@ public class ModpackUtilsConfig {
     public String title = "<modpack-name> <version> | Minecraft <mc>";
 
     //? if fabric {
-    // MMC
-    @SerialEntry
+    @SerialEntry(comment = "MMC")
     public MmcStyle mainMenuCreditsIntegeration = MmcStyle.OFF;
 
     public enum MmcStyle implements NameableEnum {
@@ -144,8 +136,8 @@ public class ModpackUtilsConfig {
         }
 
         @Override
-        public Text getDisplayName() {
-            return Text.translatable(displayName);
+        public Component getDisplayName() {
+            return Component.translatable(displayName);
         }
     }
 
@@ -160,8 +152,7 @@ public class ModpackUtilsConfig {
     );
     //?}
 
-    // Ram Alert
-    @SerialEntry
+    @SerialEntry(comment = "Ram Alert")
     public boolean ramMenuAlert = false;
 
     @SerialEntry

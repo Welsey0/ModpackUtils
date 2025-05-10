@@ -1,4 +1,4 @@
-//? if neo {
+//? if neoforge {
 /*package dev.ultimatchamp.mutils.loaders.neo;
 
 import dev.ultimatchamp.mutils.ModpackUtils;
@@ -18,10 +18,6 @@ public class ModpackUtilsNeo {
         modContainer.registerExtensionPoint(IConfigScreenFactory.class, (client, parent) -> ModpackUtilsConfig.createScreen(parent));
     }
 
-    private void onClientSetup(FMLClientSetupEvent event) {
-        if (ModpackUtils.getLatestVersion() == null) {
-            ModpackUtils.LOGGER.error("[ModpackUtils] Failed to fetch the modpack info!");
-        }
-    }
-}
-*///?}
+    private void onClientSetup(FMLClientSetupEvent event) {}
+}*/
+//?}

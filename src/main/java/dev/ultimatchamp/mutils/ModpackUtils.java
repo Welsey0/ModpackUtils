@@ -2,13 +2,12 @@ package dev.ultimatchamp.mutils;
 
 import com.google.gson.JsonParser;
 import dev.ultimatchamp.mutils.config.ModpackUtilsConfig;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -25,39 +24,35 @@ public class ModpackUtils {
 
     public static String getLatestVersion() {
         try {
-            var url = getURLForPlatform();
-            var response = sendGetRequest(url);
+            var response = sendGetRequest(getURLForPlatform());
 
-            if (ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.MODRINTH) {
-                return parseModrinthResponse(response);
-            } else if (ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.CURSEFORGE) {
-                return parseCurseForgeResponse(response);
-            } else {
-                return parseOtherPlatformResponse(response);
-            }
+            return switch (ModpackUtilsConfig.instance().platform) {
+                case MODRINTH -> parseModrinthResponse(response);
+                case CURSEFORGE -> parseCurseForgeResponse(response);
+                case CUSTOM -> parseOtherPlatformResponse(response);
+            };
         } catch (Exception e) {
-            LOGGER.error("[ModpackUtils]", e);
+            LOGGER.error("[ModpackUtils] Failed to fetch the modpack info!", e);
         }
+
         return null;
     }
 
     private static String getURLForPlatform() {
-        if (ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.MODRINTH) {
-            return "https://api.modrinth.com/v2/project/" + ModpackUtilsConfig.instance().modpackId + "/version";
-        } else if (ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.CURSEFORGE) {
-            return "https://api.curseforge.com/v1/mods/" + ModpackUtilsConfig.instance().modpackId + "/files";
-        }
-        return ModpackUtilsConfig.instance().versionAPI;
+        return switch (ModpackUtilsConfig.instance().platform) {
+            case MODRINTH -> "https://api.modrinth.com/v2/project/" + ModpackUtilsConfig.instance().modpackId + "/version";
+            case CURSEFORGE -> "https://api.curseforge.com/v1/mods/" + ModpackUtilsConfig.instance().modpackId + "/files";
+            case CUSTOM ->  ModpackUtilsConfig.instance().versionAPI;
+        };
     }
 
-    private static String sendGetRequest(String url) throws IOException, InterruptedException, URISyntaxException {
+    private static String sendGetRequest(String url) throws IOException, InterruptedException {
         HttpRequest.Builder requestBuilder = HttpRequest.newBuilder()
-                .uri(new URI(url))
+                .uri(URI.create(url))
                 .timeout(Duration.ofSeconds(10));
 
-        if (ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.CURSEFORGE) {
+        if (ModpackUtilsConfig.instance().platform == ModpackUtilsConfig.Platforms.CURSEFORGE)
             requestBuilder.header("x-api-key", getCurseForgeApiKey());
-        }
 
         var request = requestBuilder.build();
         var response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -97,7 +92,7 @@ public class ModpackUtils {
 
                     if (hasNameFilter && hasVersionFilter) {
                         if (ModpackUtilsConfig.instance().checkMcVersion) {
-                            if (MinecraftClient.getInstance().getGameVersion().equals(jsonObject.get("game_versions").getAsJsonArray().get(0).getAsString())) {
+                            if (Minecraft.getInstance().getLaunchedVersion().equals(jsonObject.get("game_versions").getAsJsonArray().get(0).getAsString())) {
                                 return jsonObject.get("version_number").getAsString();
                             }
                         } else {
@@ -156,7 +151,7 @@ public class ModpackUtils {
 
                         if (hasNameFilter && hasVersionFilter) {
                             if (ModpackUtilsConfig.instance().checkMcVersion) {
-                                if (MinecraftClient.getInstance().getGameVersion().equals(versionObject.getAsJsonArray("gameVersions").get(1).getAsString())) {
+                                if (Minecraft.getInstance().getLaunchedVersion().equals(versionObject.getAsJsonArray("gameVersions").get(1).getAsString())) {
                                     return versionObject.get("displayName").getAsString();
                                 }
                             } else {
@@ -186,7 +181,7 @@ public class ModpackUtils {
                 }
             }
         } catch (Exception e) {
-            LOGGER.error("[ModpackUtils]", e);
+            LOGGER.error("[ModpackUtils] Failed to fetch the modpack info!", e);
         }
 
         return null;
@@ -207,7 +202,7 @@ public class ModpackUtils {
                 }
             }
         } catch (Exception e) {
-            LOGGER.error("[ModpackUtils]", e);
+            LOGGER.error("[ModpackUtils] Failed to fetch the modpack info!", e);
         }
 
         return null;
