@@ -24,7 +24,7 @@ stonecutter {
 
         vcsVersion = "1.21.5-fabric"
 
-        vers("1.21.8-fabric, "1.21.8")
+        vers("1.21.8-fabric", "1.21.8")
     }
 }
 
