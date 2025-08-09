@@ -23,6 +23,9 @@ stonecutter {
         vers("1.21.1-neo", "1.21.1") // :pain:
 
         vcsVersion = "1.21.5-fabric"
+
+        vers("1.21.8-fabric", "1.21.8"),
+        vers("1.21.8-neo", "1.21.8")
     }
 }
 
