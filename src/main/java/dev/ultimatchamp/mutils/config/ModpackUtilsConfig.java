@@ -7,7 +7,7 @@ import dev.isxander.yacl3.config.v2.api.SerialEntry;
 import dev.isxander.yacl3.config.v2.api.serializer.GsonConfigSerializerBuilder;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 import java.nio.file.Path;
@@ -30,7 +30,7 @@ public class ModpackUtilsConfig {
             //?}
 
     private static final ConfigClassHandler<ModpackUtilsConfig> GSON = ConfigClassHandler.createBuilder(ModpackUtilsConfig.class)
-            .id(ResourceLocation.fromNamespaceAndPath("mutils", "config"))
+            .id(Identifier.fromNamespaceAndPath("mutils", "config"))
             .serializer(config -> GsonConfigSerializerBuilder.create(config)
                     .setPath(CONFIG_DIR.resolve("mutils/mutils.json5"))
                     .setJson5(true)
