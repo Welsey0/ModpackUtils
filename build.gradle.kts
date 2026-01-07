@@ -1,7 +1,7 @@
 plugins {
-    id("dev.architectury.loom") version "1.10-SNAPSHOT"
-    id("me.modmuss50.mod-publish-plugin") version "0.8.4"
-    id("org.moddedmc.wiki.toolkit") version "0.2.7"
+    id("dev.architectury.loom") version "1.13"
+    id("me.modmuss50.mod-publish-plugin") version "1.1.0"
+    id("org.moddedmc.wiki.toolkit") version "0.4.1"
 }
 
 var loader = project.property("loom.platform")
