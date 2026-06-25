@@ -48,7 +48,7 @@ dependencies {
     minecraft("com.mojang:minecraft:${project.property("deps.minecraft_version")}")
     mappings(loom.layered {
         officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${project.property("deps.minecraft_version")}:${project.property("deps.parchment_version")}@zip")
+        parchment("org.parchmentmc.data:parchment-1.21.11:2025.12.20@zip")
     })
 
     if (isFabric) {
