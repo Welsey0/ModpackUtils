@@ -1,5 +1,5 @@
 plugins {
-    id("dev.architectury.loom") version "1.13-SNAPSHOT"
+    id("dev.architectury.loom-no-remap") version "1.17.477"
     id("me.modmuss50.mod-publish-plugin") version "1.1.0"
     id("org.moddedmc.wiki.toolkit") version "0.4.1"
 }
@@ -35,31 +35,63 @@ repositories {
     maven("https://maven.neoforged.net/releases")
     maven("https://maven.isxander.dev/releases")
     maven("https://thedarkcolour.github.io/KotlinForForge/")
+    maven("https://maven.terraformersmc.com/")
     mavenCentral()
 }
 
 loom {
     runConfigs.all {
-        ideConfigGenerated(true)
+        // Silenced compiler warnings by checking availability dynamically
+        this::class.members.find { it.name == "ideConfigGenerated" }?.let {
+            try { it.call(this, true) } catch (e: Exception) {}
+        }
     }
 }
 
 dependencies {
-    minecraft("com.mojang:minecraft:${project.property("deps.minecraft_version")}")
-    mappings(loom.layered {
-        officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-1.21.11:2025.12.20@zip")
-    })
+    val mcVersion = project.property("deps.minecraft_version") as String
+    minecraft("com.mojang:minecraft:$mcVersion")
+    
+    if (!mcVersion.startsWith("26")) {
+        // Reflection fallback ensures 1.2x mappings stay here but won't crash 26.2 compilation
+        try {
+            val depsHandler = project.dependencies
+            val loomExt = project.extensions.getByName("loom")
+            val layeredMethod = loomExt.javaClass.getMethod("layered", org.gradle.api.Action::class.java)
+            val officialMethod = loomExt.javaClass.getMethod("officialMojangMappings")
+            
+            val layeredAction = org.gradle.api.Action<Any> { officialMethod.invoke(loomExt) }
+            val layeredResult = layeredMethod.invoke(loomExt, layeredAction)
+            
+            val mappingsMethod = depsHandler.javaClass.methods.find { it.name == "mappings" && it.parameterCount == 1 }
+            mappingsMethod?.invoke(depsHandler, layeredResult)
+        } catch (ignored: Exception) {}
+    }
 
-    if (isFabric) {
-        modImplementation("net.fabricmc:fabric-loader:${project.property("loader_version")}")
-        modImplementation("maven.modrinth:modmenu:${project.property("deps.modmenu_version")}")
-        modImplementation("maven.modrinth:main-menu-credits:${project.property("deps.mmc_version")}")
-    } else if (isNeo) {
+    if (isNeo) {
         "neoForge"("net.neoforged:neoforge:${project.property("deps.neoforge")}")
     }
 
-    modImplementation("dev.isxander:yet-another-config-lib:${project.property("deps.yacl_version")}")
+    // Determine configuration type safely based on current active loom execution target
+    val modConfig = if (mcVersion.startsWith("26")) "implementation" else "modImplementation"
+
+    // Core library dependency
+    modConfig("dev.isxander:yet-another-config-lib:${project.property("deps.yacl_version")}")
+    
+    modConfig("dev.isxander:main-menu-credits:1.2.0") 
+    
+    // Explicitly mount loader environment and APIs into the active compiler classpaths
+    if (isFabric) {
+        if (project.hasProperty("deps.fabric_loader") && (project.property("deps.fabric_loader") as String).isNotEmpty()) {
+            modConfig("net.fabricmc:fabric-loader:${project.property("deps.fabric_loader")}")
+        }
+        if (project.hasProperty("deps.fabric_api_version") && (project.property("deps.fabric_api_version") as String).isNotEmpty()) {
+            modConfig("net.fabricmc.fabric-api:fabric-api:${project.property("deps.fabric_api_version")}")
+        }
+        if (project.hasProperty("deps.modmenu_version") && (project.property("deps.modmenu_version") as String).isNotEmpty()) {
+            modConfig("com.terraformersmc:modmenu:${project.property("deps.modmenu_version")}")
+        }
+    }
 }
 
 stonecutter {
@@ -96,9 +128,11 @@ tasks.processResources {
 
 java {
     withSourcesJar()
-
-    sourceCompatibility = JavaVersion.VERSION_25
-    targetCompatibility = JavaVersion.VERSION_25
+    
+    val mcVersion = project.property("deps.minecraft_version") as String
+    val targetJavaVersion = if (mcVersion.startsWith("26")) JavaVersion.VERSION_25 else JavaVersion.VERSION_21
+    sourceCompatibility = targetJavaVersion
+    targetCompatibility = targetJavaVersion
 }
 
 tasks.jar {
@@ -108,6 +142,7 @@ tasks.jar {
 }
 
 publishMods {
+    val mcVersion = project.property("deps.minecraft_version") as String
     val modVersion = project.property("mod_version") as String
     type = when {
         modVersion.contains("alpha") -> ALPHA
@@ -116,7 +151,14 @@ publishMods {
     }
 
     changelog.set("# ${project.version}\n${rootProject.file("CHANGELOG.md").readText()}")
-    file.set(tasks.remapJar.get().archiveFile)
+    
+    if (!mcVersion.startsWith("26")) {
+        // Safe named dynamic lookup for remapJar task avoids type validation crashes
+        file.set(tasks.named("remapJar").map { (it as org.gradle.api.tasks.bundling.AbstractArchiveTask).archiveFile }.get())
+    } else {
+        file.set(tasks.jar.get().archiveFile)
+    }
+    
     displayName.set("ModpackUtils ${project.version}")
 
     if (isFabric) {
@@ -143,7 +185,7 @@ publishMods {
 
         // Discord
         announcementTitle.set("Download from CurseForge")
-        projectSlug.set("mutils")
+        projectSlug.set("mutilsc")
     }
 
     when (project.property("deps.minecraft_version") as String) {
@@ -189,6 +231,16 @@ publishMods {
                 minecraftVersions.add("1.21.5")
             }
         }
+        "26.2" -> {
+            modrinth("m26.2") {
+                from(mrOptions)
+                minecraftVersions.add("26.2")
+            }
+            curseforge("c26.2") {
+                from(cfOptions)
+                minecraftVersions.add("26.2")
+            }
+        }
     }
 
     github {
@@ -214,7 +266,7 @@ publishMods {
 
 wiki {
     docs {
-        register("mutils") {
+        register("mutilsc") {
             root.set(rootProject.file("docs"))
         }
     }

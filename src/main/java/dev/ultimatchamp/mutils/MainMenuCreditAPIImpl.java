@@ -13,7 +13,8 @@ import java.util.List;
 
 public class MainMenuCreditAPIImpl implements MainMenuCreditAPI {
     @Override
-    public List<Component> getTitleScreenBottomRight() {
+    @SuppressWarnings("rawtypes")
+    public java.util.List getTitleScreenBottomRight() {
         ModpackUtilsConfig.load(); // Workaround
 
         List<Component> list = Lists.newArrayList();

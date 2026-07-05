@@ -4,6 +4,7 @@ import dev.ultimatchamp.mutils.ModpackUtils;
 import dev.ultimatchamp.mutils.config.ModpackUtilsConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui; // Import the Gui class
 import net.minecraft.client.gui.components.toasts.SystemToast;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
@@ -12,30 +13,16 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-//? if >1.21.1 {
-import net.minecraft.client.gui.components.toasts.ToastManager;
-//?} else {
-//import net.minecraft.client.gui.components.toasts.ToastComponent;
-//?}
-
 @Mixin(Minecraft.class)
 public abstract class MinecraftMixin {
     @Shadow
-    //? if >1.21.1 {
-    public abstract ToastManager getToastManager();
-    //?} else {
-    //public abstract ToastComponent getToasts();
-    //?}
+    public Gui gui; 
 
     @Inject(method = "onGameLoadFinished", at = @At("RETURN"))
     private void mutils$showUpdateToast(CallbackInfo ci) {
         if (ModpackUtilsConfig.instance().menuAlert && ModpackUtils.updateAvailable() && ModpackUtils.getLatestVersion() != null) {
             SystemToast.add(
-                    //? if >1.21.1 {
-                    this.getToastManager(),
-                    //?} else {
-                    //this.getToasts(),
-                    //?}
+                    this.gui.toastManager(), 
                     SystemToast.SystemToastId.PERIODIC_NOTIFICATION,
                     Component.translatable("mutils.text.updateAvailable")
                             .withStyle(ChatFormatting.DARK_AQUA, ChatFormatting.BOLD),
@@ -53,11 +40,7 @@ public abstract class MinecraftMixin {
 
             if (minRam > allocatedRam) {
                 SystemToast.add(
-                        //? if >1.21.1 {
-                        this.getToastManager(),
-                        //?} else {
-                        //this.getToasts(),
-                        //?}
+                        this.gui.toastManager(),
                         SystemToast.SystemToastId.PERIODIC_NOTIFICATION,
                         Component.translatable("mutils.text.lowRam")
                                 .withStyle(ChatFormatting.RED, ChatFormatting.BOLD),
