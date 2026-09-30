@@ -53,7 +53,7 @@ dependencies {
     minecraft("com.mojang:minecraft:$mcVersion")
     
     if (!mcVersion.startsWith("26")) {
-        // Reflection fallback ensures 1.2x mappings stay here but won't crash 26.2 compilation
+        // Reflection fallback ensures 1.2x mappings stay here but won't crash 26.x compilation
         try {
             val depsHandler = project.dependencies
             val loomExt = project.extensions.getByName("loom")
@@ -231,14 +231,14 @@ publishMods {
                 minecraftVersions.add("1.21.5")
             }
         }
-        "26.2" -> {
-            modrinth("m26.2") {
+        "26.3" -> {
+            modrinth("m26.3") {
                 from(mrOptions)
-                minecraftVersions.add("26.2")
+                minecraftVersions.add("26.3")
             }
-            curseforge("c26.2") {
+            curseforge("c26.3") {
                 from(cfOptions)
-                minecraftVersions.add("26.2")
+                minecraftVersions.add("26.3")
             }
         }
     }
